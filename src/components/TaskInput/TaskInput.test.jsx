@@ -17,17 +17,33 @@ test('on input change', async () => {
     await expect.element(getByRole('textbox')).toHaveValue('Task 1');
 });
 
-test('on add task button click, add new task', async () => {
-    const handleChange = vi.fn((value) => {
+test('on add task button click, do nothing if task is empty', async () => {
+    const id = uuid();
+    const handleChange = vi.fn(() => {
         tasks.push({
-            id: uuid(),
-            title: value,
+            id,
+            title: 'Task 1',
+            done: false,
+        });
+    });
+    const { getByRole } = render(<TaskInput handleChange={handleChange} />);
+    await userEvent.fill(getByRole('textbox'), '');
+    await getByRole('button').click();
+    await expect(tasks).not.toContainEqual({ id, title: 'Task 1', done: false });
+});
+
+test('on add task button click, add new task', async () => {
+    const id = uuid();
+    const handleChange = vi.fn(() => {
+        tasks.push({
+            id,
+            title: 'Task 1',
             done: false,
         });
     });
     const { getByRole } = render(<TaskInput handleChange={handleChange} />);
     await userEvent.fill(getByRole('textbox'), 'Task 1');
     await getByRole('button').click();
-    expect(tasks.length).toBeGreaterThan(0);
+    await expect(tasks).toContainEqual({ id, title: 'Task 1', done: false });
     await expect.element(getByRole('textbox')).toHaveValue('');
 });
