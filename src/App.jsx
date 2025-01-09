@@ -1,7 +1,19 @@
 import { useState } from 'react';
+import {
+    Box,
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+} from '@mui/material';
 import TaskInput from './components/TaskInput/TaskInput';
 import TaskItem from './components/TaskItem/TaskItem';
 import DeleteTasks from './components/DeleteTasks/DeleteTasks';
+
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/700.css';
 
 import uuid from './utils/uuid';
 
@@ -43,13 +55,17 @@ function App() {
 
     const showTasksList = () => {
         if (tasks.length === 0) {
-            return <p>No tasks to display</p>;
+            return (
+                <TableRow>
+                    <TableCell colSpan={2}>No tasks to show</TableCell>
+                </TableRow>
+            );
         }
 
-        return tasks.map((task, index) => {
+        return tasks.map((task) => {
             return (
                 <TaskItem
-                    key={index}
+                    key={task.id}
                     task={task}
                     onTaskDone={onTaskDone}
                     onTaskDelete={onTaskDelete}
@@ -59,11 +75,21 @@ function App() {
     };
 
     return (
-        <>
+        <Box component="main" sx={{ padding: 2 }}>
             <TaskInput handleChange={onInputChange} />
-            <div className="task-list">{showTasksList()}</div>
+            <TableContainer sx={{ marginTop: 2, marginBottom: 2 }}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Task</TableCell>
+                            <TableCell align="right">Actions</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>{showTasksList()}</TableBody>
+                </Table>
+            </TableContainer>
             <DeleteTasks onDeleteTasks={onDeleteAllDone} />
-        </>
+        </Box>
     );
 }
 

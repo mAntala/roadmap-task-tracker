@@ -1,4 +1,4 @@
-import './TaskItem.scss';
+import { Checkbox, TableRow, TableCell, Button } from '@mui/material';
 
 export default function TaskItem({ task, onTaskDone, onTaskDelete }) {
     const markTaskAsDone = (event) => {
@@ -9,13 +9,28 @@ export default function TaskItem({ task, onTaskDone, onTaskDelete }) {
         onTaskDelete(task);
     };
 
+    const checkboxLabel = { inputProps: { 'aria-label': 'Mark as done' } };
+
     return (
-        <div className="task-item">
-            <input type="checkbox" checked={task.done} onChange={markTaskAsDone} />
-            <p className={`task-item__title ${task.done ? 'task-item__title--done' : ''}`}>
+        <TableRow>
+            <TableCell component="th" scope="row">
                 {task.title}
-            </p>
-            <button onClick={removeTask}>Remove</button>
-        </div>
+            </TableCell>
+            <TableCell align="right">
+                <Checkbox {...checkboxLabel} onChange={markTaskAsDone} checked={task.done} />
+                <Button variant="outlined" onClick={removeTask}>
+                    Remove
+                </Button>
+            </TableCell>
+        </TableRow>
     );
 }
+
+/**
+ * <TaskItem
+                    key={index}
+                    task={task}
+                    onTaskDone={onTaskDone}
+                    onTaskDelete={onTaskDelete}
+                />
+ */

@@ -1,9 +1,9 @@
-import './DeleteTasks.scss';
+import { Button } from '@mui/material';
 
 export default function DeleteTasks({ onDeleteTasks }) {
     return (
-        <button role="button" onClick={onDeleteTasks}>
+        <Button variant="contained" onClick={onDeleteTasks}>
             Delete finished tasks
-        </button>
+        </Button>
     );
 }
