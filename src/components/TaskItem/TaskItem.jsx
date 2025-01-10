@@ -25,12 +25,3 @@ export default function TaskItem({ task, onTaskDone, onTaskDelete }) {
         </TableRow>
     );
 }
-
-/**
- * <TaskItem
-                    key={index}
-                    task={task}
-                    onTaskDone={onTaskDone}
-                    onTaskDelete={onTaskDelete}
-                />
- */

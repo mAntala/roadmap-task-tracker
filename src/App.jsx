@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
     Box,
+    Container,
     TableContainer,
     Table,
     TableHead,
@@ -76,19 +77,25 @@ function App() {
 
     return (
         <Box component="main" sx={{ padding: 2 }}>
-            <TaskInput handleChange={onInputChange} />
-            <TableContainer sx={{ marginTop: 2, marginBottom: 2 }}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Task</TableCell>
-                            <TableCell align="right">Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>{showTasksList()}</TableBody>
-                </Table>
-            </TableContainer>
-            <DeleteTasks onDeleteTasks={onDeleteAllDone} />
+            <Container maxWidth="sm">
+                <TaskInput handleChange={onInputChange} />
+                <TableContainer sx={{ marginTop: 2, marginBottom: 2 }}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    <strong>Task</strong>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <strong>Actions</strong>
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>{showTasksList()}</TableBody>
+                    </Table>
+                </TableContainer>
+                <DeleteTasks onDeleteTasks={onDeleteAllDone} />
+            </Container>
         </Box>
     );
 }
